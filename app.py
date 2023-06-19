@@ -98,6 +98,8 @@ def text_to_image():
         st.image(image_url, caption=inp)
 
 def main():
+    st.text("Designed by Subhayu Dutta 2023")
+
     navbar = """
     <style>
         .navbar {
