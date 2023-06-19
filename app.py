@@ -14,7 +14,7 @@ def summarize_written_text():
         if len(text)>100:
             response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt="Please summarize this article in a few points: " + text,
+                prompt="Please summarize this article in a few points (points should be in 1,2,3,..): " + text,
                 max_tokens=516,
                 temperature=temp
             )
@@ -43,7 +43,7 @@ def summarize_audio():
             transcript = openai.Audio.transcribe("whisper-1", audio)
             response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt="Please summarize this article in a few points (points should be in 1,2,3): " + transcript["text"],
+                prompt="Please summarize this article in a few points (points should be in 1,2,3,..): " + transcript["text"],
                 max_tokens=516,
                 temperature=0.5
             )
@@ -76,7 +76,7 @@ def summarize_youtube_video():
         transcript = openai.Audio.transcribe("whisper-1",audio_file)
         response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt="Please summarize this article in a few points (points should be in 1,2,3): " + transcript["text"],
+                prompt="Please summarize this article in a few points (points should be in 1,2,3,..): " + transcript["text"],
                 max_tokens=516,
                 temperature=0.5
             )
