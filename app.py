@@ -2,21 +2,21 @@ import streamlit as st
 import openai
 from pytube import YouTube
 
-openai.api_key=st.secrets['pass']
+openai.api_key=st.text_input("Enter your API key here",type="password")
+st.session_state["api_key"]=openai.api_key
 
 def summarize_written_text():
     st.title("Summarize Written Text")
 
     text = st.text_area("Enter text")
-    temp = st.slider("Temperature", 0.0, 1.0, 0.5)
 
     if st.button("Generate"):
         if len(text)>100:
             response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt="Please summarize this article in a few points (points should be in 1,2,3,..): " + text,
+                prompt="Please summarize this article in a few points by gathering all important informations (points should be in 1,2,3,..) and give a suitable heading and atlast give key terms and : " + text,
                 max_tokens=516,
-                temperature=temp
+                temperature=0.5
             )
 
             res = response["choices"][0]["text"]
@@ -43,7 +43,7 @@ def summarize_audio():
             transcript = openai.Audio.transcribe("whisper-1", audio)
             response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt="Please summarize this article in a few points (points should be in 1,2,3,..): " + transcript["text"],
+                prompt="Please summarize this article in a few points by gathering all important informations (points should be in 1,2,3,..) and give a suitable heading and atlast give key terms and : " + transcript["text"],
                 max_tokens=516,
                 temperature=0.5
             )
@@ -76,7 +76,7 @@ def summarize_youtube_video():
         transcript = openai.Audio.transcribe("whisper-1",audio_file)
         response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt="Please summarize this article in a few points (points should be in 1,2,3,..): " + transcript["text"],
+                prompt="Please summarize this article in a few points by gathering all important informations (points should be in 1,2,3,..) and give a suitable heading and atlast give key terms and : " + transcript["text"],
                 max_tokens=516,
                 temperature=0.5
             )
@@ -98,8 +98,6 @@ def text_to_image():
         st.image(image_url, caption=inp)
 
 def main():
-    st.text("Designed by Subhayu Dutta 2023")
-
     navbar = """
     <style>
         .navbar {
@@ -126,7 +124,7 @@ def main():
     </div>
     """
     st.markdown(navbar, unsafe_allow_html=True)
-
+    st.text("Designed by Subhayu Dutta 2023")
     navbar = st.sidebar
     navbar.title("Navigation")
     page = navbar.radio("Go to", ("Summarize Written Text", "Summarize Audio", "Summarize YouTube Video", "Convert text to Image",))
