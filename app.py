@@ -22,7 +22,7 @@ def summarize_written_text():
             res = response["choices"][0]["text"]
             st.info(res)
         else:
-            st.warning("Cannot")
+            st.warning("Give long text")
     
 
 def summarize_audio():
