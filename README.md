@@ -2,6 +2,8 @@
 
 SummifyNow is a web application that provides summarization services for various types of content, including text, video, audio, and text-to-image conversion.
 
+![Talk2PDF Screenshot](./venv/Screenshot_1.jpg)
+
 ## Website
 
 The SummifyNow website is hosted at: (https://summifynow.onrender.com)
